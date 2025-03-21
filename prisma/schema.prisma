@@ -27,10 +27,19 @@ model User {
 }
 
 model Plan {
-  id    String @id @default(uuid())
-  name  String
-  price Int
-  User  User[]
+  id       String     @id @default(uuid())
+  name     String
+  price    Int
+  User     User[]
+  Benefits Benefits[]
+}
+
+model Benefits {
+  id          String @id @default(uuid())
+  name        String
+  description String
+  plan        Plan   @relation(fields: [planId], references: [id])
+  planId      String
 }
 
 model Payment {

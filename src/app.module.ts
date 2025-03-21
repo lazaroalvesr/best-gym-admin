@@ -3,10 +3,18 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { mailerConfig } from './lib/mailer.config';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
-  imports: [PrismaModule, PrismaModule, AuthModule],
+  imports: [
+    MailerModule.forRoot(mailerConfig),
+    PrismaModule, PrismaModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [{
+    provide: AppService,
+    useClass: JwtAuthGuard
+  }],
 })
 export class AppModule { }

@@ -10,7 +10,7 @@ import { SearchUserDTO } from '../dto/SearchUser.dto';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) { }
+    constructor(private readonly authService: AuthService) { }
 
     @Post("create")
     async create(@Body() body: RegisterUserDTO) {
